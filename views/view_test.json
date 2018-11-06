@@ -1,0 +1,4 @@
+{
+	"groups":["developers@datahem.org", "analysts@datahem.org"],
+	"sql":"SELECT * FROM `{project}.shared_views.test_view`"
+}
