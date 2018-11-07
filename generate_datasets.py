@@ -3,7 +3,7 @@
 from google.cloud import bigquery
 import os, json, re, logging
 
-log = logging.getLogger(__name__)
+#log = logging.getLogger(__name__)
 
 def run_authorized_view(shared_view_id, group_email, sql):
 
@@ -18,7 +18,7 @@ def run_authorized_view(shared_view_id, group_email, sql):
     try:
         shared_dataset = client.create_dataset(shared_dataset)  # API request
     except Exception, e:
-        log.error(str(e))
+        logging.error(str(e))
 
 # Authorize the group to access the shared read-only dataset
     try:
@@ -27,7 +27,7 @@ def run_authorized_view(shared_view_id, group_email, sql):
         shared_dataset.access_entries = access_entries
         shared_dataset = client.update_dataset(shared_dataset, ['access_entries'])  # API request
     except Exception, e:
-        log.error(str(e))
+        logging.error(str(e))
 
 # Create the shared view in the new dataset. First delete view if it already exists
     try:
@@ -35,14 +35,14 @@ def run_authorized_view(shared_view_id, group_email, sql):
         if(table.view_query != None):
             client.delete_table(shared_dataset.table(shared_view_id))
     except Exception, e:
-        log.error(str(e))
+        logging.error(str(e))
 
     view = bigquery.Table(shared_dataset.table(shared_view_id))
     view.view_query = sql
     try:
         view = client.create_table(view)  # API request
     except Exception, e:
-        log.error(str(e))
+        logging.error(str(e))
         return False
 
 # Authorize the view to access the source dataset
@@ -55,7 +55,7 @@ def run_authorized_view(shared_view_id, group_email, sql):
             source_dataset.access_entries = access_entries
             source_dataset = client.update_dataset(source_dataset, ['access_entries'])  # API request
         except Exception, e:
-            log.error(str(e))
+            logging.error(str(e))
 
 # Crate the read-write dataset if not already exist
     m = re.search('(.*)@.*', group_email)
@@ -65,7 +65,7 @@ def run_authorized_view(shared_view_id, group_email, sql):
     try:
         shared_dataset = client.create_dataset(shared_dataset)  # API request
     except Exception, e:
-        log.error(str(e))
+        logging.error(str(e))
 
 # Authorize the group to access the shared read-write dataset
     try:
@@ -74,7 +74,7 @@ def run_authorized_view(shared_view_id, group_email, sql):
         shared_dataset.access_entries = access_entries
         shared_dataset = client.update_dataset(shared_dataset, ['access_entries'])  # API request
     except Exception, e:
-        log.error(str(e))
+        logging.error(str(e))
 
     return True
 
