@@ -1,4 +1,4 @@
-FROM gcr.io/google-appengine/python
+FROM gcr.io/google-appengine/python:latest
 
 # Create a virtualenv for dependencies. This isolates these packages from
 # system-level packages.

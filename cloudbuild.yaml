@@ -1,3 +1,8 @@
 steps:
-- name: 'gcr.io/google/python:latest'
-  args: ['python', 'generate_datasets.py']
+- name: 'gcr.io/$PROJECT_ID/bigquery-python'
+  entrypoint: '/bin/bash'
+  args: [ '-c',
+          'source /venv/bin/activate' ]
+- name: 'gcr.io/$PROJECT_ID/bigquery-python'
+  entrypoint: 'python'
+  args: [ 'generate_datasets.py']
