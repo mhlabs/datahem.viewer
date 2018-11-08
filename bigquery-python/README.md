@@ -1,15 +1,10 @@
 # BigQuery Python builder
 
 ## Introduction
-This builder supports the Cloud BigQuery Python API.
+This builder supports the BigQuery Python API.
 
 ## Usage
-
-If this is your first time using Cloud Build, follow the [Quickstart for
-Docker](https://cloud.google.com/cloud-build/docs/quickstart-docker) to
-get started.
-
-Then, clone this code and build the builder:
+From this folder run:
 
 ```
 gcloud builds submit --config=cloudbuild.yaml .
